@@ -1,0 +1,14 @@
+PLAYLIST ID = 7z7rvFWfhOaD686m1VmHp8
+
+https://developer.spotify.com/console/get-search-item/
+"GET" "https://api.spotify.com/v1/search?q=SEARCHQUERY&type=track"
+
+
+tracks items 0 album id 
+https://developer.spotify.com/console/get-album-tracks/
+"GET" "https://api.spotify.com/v1/albums/ALBUMID/tracks"
+
+
+tracks items itemslength uri
+https://developer.spotify.com/console/post-playlist-tracks/
+"POST" "https://api.spotify.com/v1/playlists/7z7rvFWfhOaD686m1VmHp8/tracks?uris=spotify%3Atrack%3A7HzY5BjNBn3GhVk6b6VuCj"
