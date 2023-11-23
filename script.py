@@ -7,8 +7,6 @@ from spotipy.oauth2 import SpotifyOAuth
 
 url = "https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100"
 
-target = requests.get(url)
-soup = BeautifulSoup(target.text, features="html.parser")
 
 duplicate = []
 new = []
