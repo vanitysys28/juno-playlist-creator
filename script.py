@@ -12,6 +12,11 @@ def scrapeJuno():
     duplicate = []
     new = []
 
+    url = "https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100"
+
+    target = requests.get(url)
+    soup = BeautifulSoup(target.text, features="html.parser")
+
     while len(soup.find_all("a",{"title":"Next Page"})) > 0:
         target = requests.get(url)
         soup = BeautifulSoup(target.text, features="html.parser")
