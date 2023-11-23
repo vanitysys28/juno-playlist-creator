@@ -7,7 +7,7 @@ from spotipy.oauth2 import SpotifyOAuth
 # url = "https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100"
 
 # r = requests.get(url = URL)
-# soup = BeautifulSoup(r.text, features="html.parser")
+soup = BeautifulSoup(target.text, features="html.parser")
 
 # duplicate = []
 # new = []
@@ -15,8 +15,8 @@ from spotipy.oauth2 import SpotifyOAuth
 # print("Script starting")
 
 # while len(soup.find_all("a",{"title":"Next Page"})) > 0:
-#     r = requests.get(url = URL)
-#     soup = BeautifulSoup(r.text, features="html.parser")
+    target = requests.get(url)
+    soup = BeautifulSoup(target.text, features="html.parser")
     file = open("data.txt","a",encoding="utf-8")
     
 #     for data in soup.find_all("div", {"class":"col-12 col-md order-4 order-md-3 mt-3 mt-md-0 pl-0 pl-md-2"}):
