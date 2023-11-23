@@ -17,12 +17,12 @@ from spotipy.oauth2 import SpotifyOAuth
 # while len(soup.find_all("a",{"title":"Next Page"})) > 0:
 #     r = requests.get(url = URL)
 #     soup = BeautifulSoup(r.text, features="html.parser")
-#     file = open("drumoandbasso.txt","a",encoding="utf-8")
+    file = open("data.txt","a",encoding="utf-8")
     
 #     for data in soup.find_all("div", {"class":"col-12 col-md order-4 order-md-3 mt-3 mt-md-0 pl-0 pl-md-2"}):
 #         line = data("div", {"class":"col juno-artist"})[0].get_text().replace("/", " ") + "    " + data("a", {"class":"juno-title"})[0].get_text()
 
-#         with open('drumoandbasso.txt') as f:
+        with open('data.txt') as f:
 #             if line in f.read():
 #                 duplicate.append(line)
 #             else:
@@ -49,7 +49,7 @@ playlist_id = os.getenv('PLAYLIST_ID')
 
 
 
-# file = open("drumoandbasso.txt",encoding="utf-8")
+file = open("data.txt",encoding="utf-8")
 # lines = file.readlines()
 # for line in lines:
 #     try:
