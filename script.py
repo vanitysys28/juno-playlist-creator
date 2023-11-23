@@ -41,7 +41,12 @@ from spotipy.oauth2 import SpotifyOAuth
 
 # scope = "playlist-modify-private,playlist-modify-public"
 
-# sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CLIENT_ID,client_secret=CLIENT_SECRET,redirect_uri="http://localhost:8888/callback",scope=scope))
+load_dotenv()
+
+client_id = os.getenv('CLIENT_ID')
+client_secret = os.getenv('CLIENT_SECRET')
+playlist_id = os.getenv('PLAYLIST_ID')
+
 
 
 # file = open("drumoandbasso.txt",encoding="utf-8")
