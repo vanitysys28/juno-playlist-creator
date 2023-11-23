@@ -60,3 +60,9 @@ for line in lines:
     except:
         print('No match while searching for ' + line)
     
+def main():
+    scrapeJuno()
+    addToSpotifyPlaylist()
+
+if __name__ == "__main__":
+    main()
