@@ -6,9 +6,6 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 def scrapeJuno():
-    duplicate = []
-    new = []
-
     url = "https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100"
 
     target = requests.get(url)
@@ -20,21 +17,15 @@ def scrapeJuno():
         file = open("data.txt","a",encoding="utf-8")
         
         for data in soup.find_all("div", {"class":"col-12 col-md order-4 order-md-3 mt-3 mt-md-0 pl-0 pl-md-2"}):
-            line = data("div", {"class":"col juno-artist"})[0].get_text().replace("/", " ") + "    " + data("a", {"class":"juno-title"})[0].get_text()
+            entry = data("div", {"class":"col juno-artist"})[0].get_text().replace("/", " ") + "    " + data("a", {"class":"juno-title"})[0].get_text()
 
             with open('data.txt') as f:
-                if line in f.read():
-                    duplicate.append(line)
-                else:
-                    file.write(data("div", {"class":"col juno-artist"})[0].get_text().replace("/", ", ") + "    " + data("a", {"class":"juno-title"})[0].get_text())
+                if entry not in f.read():
+                    file.write(entry)
                     file.write('\n')
-                    new.append(line)
 
         if len(soup.find_all("a",{"title":"Next Page"})) > 0:
             url = soup.find("a",{"title":"Next Page"})['href']
-
-    print(str(len(duplicate)) + " items already in song list")
-    print(str(len(new)) + " songs added to song list")
 
 def addToSpotifyPlaylist():
     load_dotenv()
