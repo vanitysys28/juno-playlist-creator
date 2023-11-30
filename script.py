@@ -7,15 +7,12 @@ from spotipy.oauth2 import SpotifyOAuth
 
 def scrapeJuno():
     url = "https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100"
-
-    target = requests.get(url)
-    soup = BeautifulSoup(target.text, features="html.parser")
+    soup = BeautifulSoup(requests.get(url).text, features="html.parser")
 
     while len(soup.find_all("a",{"title":"Next Page"})) > 0:
-        target = requests.get(url)
-        soup = BeautifulSoup(target.text, features="html.parser")
+        soup = BeautifulSoup(requests.get(url).text, features="html.parser")
         file = open("data.txt","a",encoding="utf-8")
-        
+                
         for data in soup.find_all("div", {"class":"col-12 col-md order-4 order-md-3 mt-3 mt-md-0 pl-0 pl-md-2"}):
             entry = data("div", {"class":"col juno-artist"})[0].get_text().replace("/", " ") + "    " + data("a", {"class":"juno-title"})[0].get_text()
 
