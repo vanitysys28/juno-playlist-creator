@@ -6,39 +6,39 @@ from bs4 import BeautifulSoup
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
 def createDataFolder():
-    if os.path.exists("./data") != True:
-        os.mkdir("./data")
+    if os.path.exists('./data') != True:
+        os.mkdir('./data')
 
 def readFilesInDataFolder():
-    filecontents = ""
+    filecontents = ''
 
-    for files in os.listdir("./data"):
+    for files in os.listdir('./data'):
         with open('data/' + files) as f:
             filecontents += f.read()
 
     scrapeJuno(filecontents)
                 
 def scrapeJuno(filecontents):
-    url = "https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100"
-    soup = BeautifulSoup(requests.get(url).text, features="html.parser")
+    url = 'https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100'
+    soup = BeautifulSoup(requests.get(url).text, features='html.parser')
 
-    while len(soup.find_all("a",{"title":"Next Page"})) > 0:
-        soup = BeautifulSoup(requests.get(url).text, features="html.parser")
-        file = open("data/" + now + ".txt","a",encoding="utf-8")
+    while len(soup.find_all('a',{'title':'Next Page'})) > 0:
+        soup = BeautifulSoup(requests.get(url).text, features='html.parser')
+        file = open('data/' + now + '.txt','a',encoding='utf-8')
         
-        for data in soup.find_all("div", {"class":"col-12 col-md order-4 order-md-3 mt-3 mt-md-0 pl-0 pl-md-2"}):
-            entry = data("div", {"class":"col juno-artist"})[0].get_text().replace("/", " ") + "    " + data("a", {"class":"juno-title"})[0].get_text()
+        for data in soup.find_all('div', {'class':'col-12 col-md order-4 order-md-3 mt-3 mt-md-0 pl-0 pl-md-2'}):
+            entry = data('div', {'class':'col juno-artist'})[0].get_text().replace('/', ' ') + '    ' + data('a', {'class':'juno-title'})[0].get_text()
 
-            with open("data/" + now + ".txt"):
+            with open('data/' + now + '.txt'):
                 if entry not in filecontents:
                     file.write(entry)
                     file.write('\n')
 
-        if len(soup.find_all("a",{"title":"Next Page"})) > 0:
-            url = soup.find("a",{"title":"Next Page"})['href']
+        if len(soup.find_all('a',{'title':'Next Page'})) > 0:
+            url = soup.find('a',{'title':'Next Page'})['href']
 
 def addToSpotifyPlaylist():
     load_dotenv()
@@ -47,11 +47,11 @@ def addToSpotifyPlaylist():
     client_secret = os.getenv('CLIENT_SECRET')
     playlist_id = os.getenv('PLAYLIST_ID')
 
-    scope = "playlist-modify-private,playlist-modify-public"
+    scope = 'playlist-modify-private,playlist-modify-public'
 
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id,client_secret,redirect_uri="http://localhost:8888/callback",scope=scope))
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id,client_secret,redirect_uri='http://localhost:8888/callback',scope=scope))
 
-    file = open("data/" + now + ".txt",encoding="utf-8")
+    file = open('data/' + now + '.txt',encoding='utf-8')
     lines = file.readlines()
     for line in lines:
             albumid = sp.search(q=line, limit=20,type='track')['tracks']['items'][0]['album']['id']
@@ -63,5 +63,5 @@ def main():
     scrapeJuno()
     addToSpotifyPlaylist()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
