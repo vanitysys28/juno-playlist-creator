@@ -1,9 +1,9 @@
-import os
 import datetime
-from dotenv import load_dotenv
+import os
 import requests
-from bs4 import BeautifulSoup
 import spotipy
+from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyOAuth
 
 now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
