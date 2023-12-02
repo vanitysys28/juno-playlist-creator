@@ -11,3 +11,4 @@ The Spotify client is notifying whenever we attempt to add a song already in a p
 The API isn't currently offering any direct mean to check for possible duplicates. 
 
 For this reason, the script needs to keep log of all previously scraped songs, and check all past logs for duplicates.
+This is done to prevent adding the same song multiple times to a playlist.
