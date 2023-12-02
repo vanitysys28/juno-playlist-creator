@@ -12,19 +12,28 @@ def createDataFolder():
     if os.path.exists("./data") != True:
         os.mkdir("./data")
 
-def scrapeJuno():
+def readFilesInDataFolder():
+    filecontents = ""
+
+    for files in os.listdir("./data"):
+        with open('data/' + files) as f:
+            filecontents += f.read()
+
+    scrapeJuno(filecontents)
+                
+def scrapeJuno(filecontents):
     url = "https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100"
     soup = BeautifulSoup(requests.get(url).text, features="html.parser")
 
     while len(soup.find_all("a",{"title":"Next Page"})) > 0:
         soup = BeautifulSoup(requests.get(url).text, features="html.parser")
         file = open("data/" + now + ".txt","a",encoding="utf-8")
-                
+        
         for data in soup.find_all("div", {"class":"col-12 col-md order-4 order-md-3 mt-3 mt-md-0 pl-0 pl-md-2"}):
             entry = data("div", {"class":"col juno-artist"})[0].get_text().replace("/", " ") + "    " + data("a", {"class":"juno-title"})[0].get_text()
 
-            with open('data/' + now + '.txt') as f:
-                if entry not in f.read():
+            with open("data/" + now + ".txt"):
+                if entry not in filecontents:
                     file.write(entry)
                     file.write('\n')
 
