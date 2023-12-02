@@ -8,6 +8,10 @@ from spotipy.oauth2 import SpotifyOAuth
 
 now = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
+def createDataFolder():
+    if os.path.exists("./data") != True:
+        os.mkdir("./data")
+
 def scrapeJuno():
     url = "https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100"
     soup = BeautifulSoup(requests.get(url).text, features="html.parser")
