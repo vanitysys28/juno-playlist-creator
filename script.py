@@ -60,7 +60,8 @@ def addToSpotifyPlaylist():
                 playlistadd = sp.playlist_add_items(playlist_id,[tracks['uri']],position=None)
     
 def main():
-    scrapeJuno()
+    createDataFolder()
+    readFilesInDataFolder()
     addToSpotifyPlaylist()
 
 if __name__ == '__main__':
