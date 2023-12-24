@@ -19,10 +19,28 @@ def readFilesInDataFolder():
         with open('data/' + files) as f:
             filecontents += f.read()
 
-    scrapeJuno(filecontents)
+    genre = str(genreSelector())
+    scrapeJuno(filecontents, genre)
+
+def genreSelector():
+    selection = input('''
+    Select genre by typing associated number:
+
+    1 - Drum and Bass
+    2 - Hard Techno
+    3 - Trance
+
+    Your selection: ''')
+
+    if selection == 1:
+        return "drumandbass"
+    if selection == 2:
+        return "hard-techno"
+    if selection == 3:
+        return "trance-music"
                 
-def scrapeJuno(filecontents):
-    url = 'https://www.junodownload.com/drumandbass/eight-weeks/releases/?items_per_page=100'
+def scrapeJuno(filecontents, genre):
+    url = 'https://www.junodownload.com/' + genre + '/eight-weeks/releases/?items_per_page=100'
     soup = BeautifulSoup(requests.get(url).text, features='html.parser')
 
     while len(soup.find_all('a',{'title':'Next Page'})) > 0:
