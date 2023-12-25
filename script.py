@@ -1,3 +1,4 @@
+
 import datetime
 import os
 import requests
@@ -20,7 +21,8 @@ def readFilesInDataFolder():
             filecontents += f.read()
 
     genre = str(genreSelector())
-    scrapeJuno(filecontents, genre)
+    timelapse = str(timeLapseSelector())
+    scrapeJuno(filecontents, genre, timelapse)
 
 def genreSelector():
     selection = input('''
@@ -38,9 +40,29 @@ def genreSelector():
         return "hard-techno"
     if selection == 3:
         return "trance-music"
-                
+
+def timeLapseSelector():
+    selection = input('''
+    Select time lapse by typing associated number:
+
+    1 - Last Week
+    2 - Last 2 Weeks
+    3 - Last 4 Weeks
+    4 - Last 8 Weeks
+
+    Your selection: ''')
+
+    if selection == 1:
+        return "this-week"
+    if selection == 2:
+        return "two-weeks"
+    if selection == 3:
+        return "four-weeks"
+    if selection == 4:
+        return "eight-weeks"
+    
 def scrapeJuno(filecontents, genre):
-    url = 'https://www.junodownload.com/' + genre + '/eight-weeks/releases/?items_per_page=100'
+    url = 'https://www.junodownload.com/' + genre + '/' + timelapse + '/releases/?items_per_page=100'
     soup = BeautifulSoup(requests.get(url).text, features='html.parser')
 
     while len(soup.find_all('a',{'title':'Next Page'})) > 0:
