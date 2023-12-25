@@ -1,4 +1,3 @@
-
 import datetime
 import os
 import requests
@@ -20,9 +19,7 @@ def readFilesInDataFolder():
         with open('data/' + files) as f:
             filecontents += f.read()
 
-    genre = str(genreSelector())
-    timelapse = str(timeLapseSelector())
-    scrapeJuno(filecontents, genre, timelapse)
+    scrapeJuno(filecontents, genreSelector(), timeLapseSelector())
 
 def genreSelector():
     selection = input('''
@@ -34,12 +31,12 @@ def genreSelector():
 
     Your selection: ''')
 
-    if selection == 1:
-        return "drumandbass"
-    if selection == 2:
-        return "hard-techno"
-    if selection == 3:
-        return "trance-music"
+    if selection == '1':
+        return 'drumandbass'
+    if selection == '2':
+        return 'hard-techno'
+    if selection == '3':
+        return 'trance-music'
 
 def timeLapseSelector():
     selection = input('''
@@ -52,16 +49,16 @@ def timeLapseSelector():
 
     Your selection: ''')
 
-    if selection == 1:
-        return "this-week"
-    if selection == 2:
-        return "two-weeks"
+    if selection == '1':
+        return 'this-week'
+    if selection == '2':
+        return 'two-weeks'
     if selection == 3:
-        return "four-weeks"
-    if selection == 4:
-        return "eight-weeks"
+        return 'four-weeks'
+    if selection == '4':
+        return 'eight-weeks'
     
-def scrapeJuno(filecontents, genre):
+def scrapeJuno(filecontents, genre, timelapse):
     url = 'https://www.junodownload.com/' + genre + '/' + timelapse + '/releases/?items_per_page=100'
     soup = BeautifulSoup(requests.get(url).text, features='html.parser')
 
@@ -103,6 +100,6 @@ def main():
     createDataFolder()
     readFilesInDataFolder()
     addToSpotifyPlaylist()
-
+    
 if __name__ == '__main__':
     main()
