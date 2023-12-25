@@ -10,13 +10,13 @@ from spotipy.oauth2 import SpotifyOAuth
 now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
 def createDataFolder():
-    if os.path.exists('./data') != True:
-        os.mkdir('./data')
+    if os.path.exists('data/') != True:
+        os.mkdir('data/')
 
 def readFilesInDataFolder():
     filecontents = ''
 
-    for files in os.listdir('./data'):
+    for files in os.listdir('data/'):
         with open('data/' + files) as f:
             filecontents += f.read()
 
