@@ -9,7 +9,9 @@ This tool is gathering all releases in the previous 8 weeks, and adding them aut
 
 - [Spotify App](https://developer.spotify.com/documentation/web-api/tutorials/getting-started#create-an-app)
 - .env file containing following variables :
-  - Test   
+  - CLIENT_ID
+  - CLIENT_SECRET
+  - PLAYLIST_ID
 
 ## Spotify API Limitations
 
