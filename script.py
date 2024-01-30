@@ -91,6 +91,7 @@ def addToSpotifyPlaylist():
     file = open('data/' + now + '.txt',encoding='utf-8')
     lines = file.readlines()
     for line in lines:
+        if sp.search(q=line, limit=20,type='track')['tracks']['items']:
             albumid = sp.search(q=line, limit=20,type='track')['tracks']['items'][0]['album']['id']
             albumtracks = sp.album_tracks(albumid)['items']
             for tracks in albumtracks:
