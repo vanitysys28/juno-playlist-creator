@@ -67,7 +67,7 @@ def scrapeJuno(filecontents, genre, timelapse):
         file = open('data/' + now + '.txt','a',encoding='utf-8')
         
         for data in soup.find_all('div', {'class':'col-12 col-md order-4 order-md-3 mt-3 mt-md-0 pl-0 pl-md-2'}):
-            entry = data('a', {'class':'juno-title'})[0].get_text().replace('Explicit','') + ' label:' + data('a', {'class':'juno-label'})[0].get_text()
+            entry = data('a', {'class':'juno-title'})[0].get_text().replace('Explicit','') + ' label:"' + data('a', {'class':'juno-label'})[0].get_text() + '"'
 
             with open('data/' + now + '.txt'):
                 if entry not in filecontents:
@@ -91,6 +91,7 @@ def addToSpotifyPlaylist():
     file = open('data/' + now + '.txt',encoding='utf-8')
     lines = file.readlines()
     for line in lines:
+        label = line.split('label:')[1]
         if sp.search(q=line, limit=20,type='track')['tracks']['items']:
             albumid = sp.search(q=line, limit=20,type='track')['tracks']['items'][0]['album']['id']
             albumtracks = sp.album_tracks(albumid)['items']
