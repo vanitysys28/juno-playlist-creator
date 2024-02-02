@@ -67,8 +67,9 @@ def scrapeJuno(filecontents, genre, timelapse):
         file = open('data/' + now + '.txt','a',encoding='utf-8')
         
         for data in soup.find_all('div', {'class':'col-12 col-md order-4 order-md-3 mt-3 mt-md-0 pl-0 pl-md-2'}):
-            label = data('a', {'class':'juno-label'})[0].get_text()
+            artist = data('div', {'class':'col juno-artist'})[0].get_text()
             album = data('a', {'class':'juno-title'})[0].get_text().replace('(Explicit)','')
+            label = data('a', {'class':'juno-label'})[0].get_text()
             entry = 'label:"' + label + '" ' + album
 
             with open('data/' + now + '.txt'):
