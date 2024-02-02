@@ -95,10 +95,14 @@ def addToSpotifyPlaylist():
     for line in lines:
         label = line.split('label:')[1]
         if sp.search(q=line, limit=20,type='track')['tracks']['items']:
-            albumid = sp.search(q=line, limit=20,type='track')['tracks']['items'][0]['album']['id']
-            albumtracks = sp.album_tracks(albumid)['items']
-            for tracks in albumtracks:
-                playlistadd = sp.playlist_add_items(playlist_id,[tracks['uri']],position=None)
+            searchresults = sp.search(q=line, limit=20,type='track')['tracks']['items']
+            for item in searchresults:
+                if item['album']['name'] in line:
+                    albumid = item['album']['id']
+                    albumtracks = sp.album_tracks(albumid)['items']
+                    for tracks in albumtracks:
+                        playlistadd = sp.playlist_add_items(playlist_id,[tracks['uri']],position=None)  
+                    break
     
 def main():
     createDataFolder()
