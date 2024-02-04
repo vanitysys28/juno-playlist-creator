@@ -70,8 +70,9 @@ def scrapeJuno(filecontents, genre, timelapse):
             artist = data('div', {'class':'col juno-artist'})[0].get_text()
             album = data('a', {'class':'juno-title'})[0].get_text().replace('(Explicit)','')
             label = data('a', {'class':'juno-label'})[0].get_text()
-            tracks = data('div', {'class':'col pl-2 jq_highlight'})[0].get_text().rsplit('-', 1)[0]
-
+            if data('div', {'class':'col pl-2 jq_highlight'}):
+                tracks = data('div', {'class':'col pl-2 jq_highlight'})[0].get_text().rsplit('-', 1)[0]
+            
             entry = 'label:"' + label + '" ' + album
 
             with open('data/' + now + '.txt'):
